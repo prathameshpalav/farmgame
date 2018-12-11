@@ -6,9 +6,27 @@
 		<title>Farm Game</title>
 	</head>
 	<body>
+
+		<form method="post" action="start_game.php">	
+			<input type="submit" name="start" value="<?php echo isset($_SESSION['game_id']) ? 'Restart Game' : 'Start Game';?>">
+		</form>
+		
 		<?php
 			if(isset($_SESSION['game_id'])) {
 				?>
+
+				<form action="feed.php" method="post">
+					<?php 
+						if(!empty($_SESSION['game_status'])) {
+							echo $_SESSION['game_status']."<br>";
+					 	} else {
+							?>
+							<input type="submit" name="feed" value="Feed">
+							<?php 
+						}
+					?>
+				</form>
+
 				<table border="1">
 					<thead>
 						<tr>
@@ -38,27 +56,10 @@
 						}
 						?>
 					</tbody>
-				</table>
-
-				
-				<form action="feed.php" method="post">
-					<?php 
-						if(!empty($_SESSION['game_status'])) {
-							echo $_SESSION['game_status']."<br>";
-					 	} else {
-							?>
-							<input type="submit" name="feed" value="Feed">
-							<?php 
-						}
-					?>
-				</form>
+				</table>						
 				<?php 
 			}
-		?>
-	
-		<form method="post" action="start_game.php">	
-			<input type="submit" name="start" value="<?php echo isset($_SESSION['game_id']) ? 'Restart Game' : 'Start Game';?>">
-		</form>
+		?>		
 
 	</body>
 </html>
