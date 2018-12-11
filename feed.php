@@ -12,8 +12,14 @@ if(isset($_SESSION['game_id']) && isset($_POST['feed'])) {// will be executed wh
 
 		// checking status after all rounds done
 		// farmer and atleast one animal should exists for win
-		if(!in_array('farmer', $_SESSION['dead_entities']) && ((count(ENTITIES) - 2) >= count($_SESSION['dead_entities']))) {			
-			$_SESSION['game_status'] = 'Congratulations. You won the game.';	
+		if(!in_array('farmer', $_SESSION['dead_entities'])) {
+
+			$cow_array = preg_grep("/^cow(.*?)$/", $_SESSION['dead_entities']);
+			$bunny_array = preg_grep("/^bunny(.*?)$/", $_SESSION['dead_entities']);
+
+			if(!empty($cow_array) && !empty($bunny_array)) {
+				$_SESSION['game_status'] = 'Congratulations. You won the game.';
+			}	
 		}		
 	}
 
